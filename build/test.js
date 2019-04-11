@@ -5,7 +5,6 @@ const config = require('../config')
 const TerserPlugin = require('terser-webpack-plugin')
 // 用于将组件内的css分开打包
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-// const uglify = require('uglifyjs-webpack-plugin')
 
 process.env.NODE_ENV = 'production'
 
@@ -14,9 +13,9 @@ const devConf = {
   optimization: {
     minimize: true,
     // 告知 webpack 使用可读取模块标识符(readable module identifiers)，来帮助更好地调试
-    // namedModules: true,
+    namedModules: true,
     // 告知 webpack 使用可读取 chunk 标识符(readable chunk identifiers)，来帮助更好地调试
-    // namedChunks: true,
+    namedChunks: true,
     splitChunks: {
       chunks: 'async',
       cacheGroups: {
@@ -47,8 +46,7 @@ const devConf = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: `css/[name].css`,
-      // chunkFilename: `css/[name].css`,
+      filename: 'css/[name].css',
       path: config.distDir
     })
   ]

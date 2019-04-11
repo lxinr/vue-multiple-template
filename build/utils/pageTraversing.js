@@ -2,7 +2,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const glob = require('glob')
 const path = require('path')
-const { viewsDir } = require('../../config')
+const { viewsDir, primitive } = require('../../config')
 
 let hwps = [], entry = {}
 
@@ -13,9 +13,7 @@ glob.sync('*/', {
   let temp = {
     template: path.join(viewsDir, item, 'index.html'),
     filename: `${item}.html`,
-    // chunksSortMode: 'dependency',
-    chunks: [ 'commons', item ]
-    // chunks: [ 'common', item ]
+    chunks: [ primitive.indexOf(item) !== -1 ? '' : 'commons', item ]
   }
   hwps.push(new HtmlWebpackPlugin(temp))
   entry[item] = path.resolve(viewsDir, item, 'index.js')

@@ -8,7 +8,13 @@ module.exports = (loader = []) => {
     isDev ? {
       loader: 'vue-style-loader'
     } : {
-      loader: MiniCssExtractPlugin.loader
+      loader: MiniCssExtractPlugin.loader,
+      // options: {
+      //   // only enable hot in development
+      //   hmr: process.env.NODE_ENV === 'development',
+      //   // if hmr does not work, this is a forceful method.
+      //   reloadAll: true,
+      // }
     },
     {
       loader: 'css-loader'

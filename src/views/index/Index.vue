@@ -1,17 +1,22 @@
 <template>
   <div>
-    我还能说点啥
+    vue页
     <h3>{{tit}}</h3>
     <a href="user.html">user</a>
+    <test></test>
   </div>
 </template>
 
 <script>
+import test from './test'
 export default {
   data() {
     return {
       tit: '这是标题'
     }
+  },
+  components: {
+    test
   }
 }
 </script>

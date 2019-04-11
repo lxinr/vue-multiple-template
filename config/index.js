@@ -13,5 +13,7 @@ module.exports = {
   distModule: DIS_MODULE,
   viewsDir: srcPath('views'),
   distDir: srcPath('..', 'dist', DIS_MODULE),
-  staticDir: srcPath('static')
+  staticDir: srcPath('static'),
+  // 原生代码的文件
+  primitive: ['user']
 }

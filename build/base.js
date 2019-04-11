@@ -1,6 +1,5 @@
 const config = require('../config')
 const { hwps, entry } = require('./utils/pageTraversing')
-const webpack = require('webpack')
 const path = require('path')
 const { VueLoaderPlugin } = require('vue-loader')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
