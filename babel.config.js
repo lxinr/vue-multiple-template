@@ -7,7 +7,7 @@ function _import(dir) {
 module.exports = {
   'presets': [
     [
-      _import('@babel/preset-env'),
+      '@babel/preset-env',
       { 
         // // 用于指定版本
         'targets': {

@@ -4,9 +4,7 @@ const glob = require('glob')
 const path = require('path')
 const { viewsDir } = require('../../config')
 
-let hwps = [], entry = {
-  // common: [ 'axios', 'vue' ]
-}
+let hwps = [], entry = {}
 
 glob.sync('*/', {
   cwd: viewsDir
@@ -16,7 +14,7 @@ glob.sync('*/', {
     template: path.join(viewsDir, item, 'index.html'),
     filename: `${item}.html`,
     // chunksSortMode: 'dependency',
-    chunks: [ item ]
+    chunks: [ 'commons', item ]
     // chunks: [ 'common', item ]
   }
   hwps.push(new HtmlWebpackPlugin(temp))
