@@ -38,6 +38,17 @@ const baseConf = {
       {
         test: /\.css$/ig,
         use: StyleLoader()
+      },
+      {
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        enforce: 'pre',
+        include: [ config.srcDir ],
+        options: {
+          formatter: require('eslint-friendly-formatter'),
+          emitError: true,
+          failOnError: true
+        }
       }
     ]
   },

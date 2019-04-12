@@ -13,7 +13,13 @@ glob.sync('*/', {
   let temp = {
     template: path.join(viewsDir, item, 'index.html'),
     filename: `${item}.html`,
-    chunks: [ primitive.indexOf(item) !== -1 ? '' : 'commons', item ]
+    chunks: [ primitive.indexOf(item) !== -1 ? '' : 'commons', item ],
+    minify: {
+      collapseWhitespace: true,
+      removeAttributeQuotes: true
+      // more options:
+      // https://github.com/kangax/html-minifier#options-quick-reference
+    }
   }
   hwps.push(new HtmlWebpackPlugin(temp))
   entry[item] = path.resolve(viewsDir, item, 'index.js')
