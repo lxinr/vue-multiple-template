@@ -1,10 +1,19 @@
 const config = require('../config')
 const { hwps, entry } = require('./utils/pageTraversing')
 const path = require('path')
+const webpack = require('webpack')
 const { VueLoaderPlugin } = require('vue-loader')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const WebpackDeepScopeAnalysisPlugin = require('webpack-deep-scope-plugin').default
 const StyleLoader = require('./utils/styleLoader')
+
+process.env.DIST_MODULE = config.disModule
+
+const clientEnvironment = {
+  'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+  'process.env.DIST_MODULE': JSON.stringify(process.env.DIST_MODULE)
+}
+
 const baseConf = {
   entry: entry,
   // 外部扩展
@@ -25,7 +34,8 @@ const baseConf = {
     // 别名
     alias: {
       vue$: 'vue/dist/vue.esm.js',
-      '@src': config.srcDir
+      '@src': config.srcDir,
+      '@static': config.staticDir
     }
   },
   module: {
@@ -49,12 +59,51 @@ const baseConf = {
           emitError: true,
           failOnError: true
         }
+      },
+      {
+        test: /\.scss$/ig,
+        use: StyleLoader('sass-loader')
+      },
+      {
+        test: /\.pug$/,
+        oneOf: [
+          // 用于在vue模板中使用lang="pug"
+          {
+            resourceQuery: /^\?vue/,
+            use: ['pug-plain-loader']
+          },
+          // 用于在js中import
+          {
+            use: ['raw-loader', 'pug-plain-loader']
+          }
+        ]
+      },
+      {
+        test: /\.(png|svg|jpe?g|gif)(\?.*)?$/i,
+        loader: 'url-loader',
+        options: {
+          limit: 1000,
+          name: `static/img/[name].[hash:${config.hashLength}].[ext]`
+        }
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/i,
+        loader: 'url-loader',
+        options: {
+          limit: 1000,
+          name: `static/font/[name].[hash:${config.hashLength}].[ext]`
+        }
       }
     ]
   },
   plugins: [
     ...hwps,
     new WebpackDeepScopeAnalysisPlugin(),
+    // DefinePlugin 允许创建一个在编译时可以配置的全局常量
+    // https://webpack.docschina.org/plugins/define-plugin/
+    new webpack.DefinePlugin({
+      ...clientEnvironment
+    }),
     new VueLoaderPlugin(),
     // 将静态资源拷贝到dist
     new CopyWebpackPlugin([

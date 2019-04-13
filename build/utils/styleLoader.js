@@ -18,6 +18,9 @@ module.exports = (loader = []) => {
     },
     {
       loader: 'css-loader'
+    },
+    {
+      loader: 'postcss-loader'
     }
   ]
   if (loader && loader.length) {

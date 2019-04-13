@@ -3,6 +3,7 @@
     vue页
     <h3>{{tit}}</h3>
     <a href="user.html">user</a>
+    <a href="home.html">home</a>
     <test></test>
   </div>
 </template>

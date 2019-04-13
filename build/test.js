@@ -7,6 +7,7 @@ const TerserPlugin = require('terser-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 // css压缩
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 process.env.NODE_ENV = 'production'
 
 const devConf = {
@@ -57,6 +58,7 @@ const devConf = {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
       path: config.distDir

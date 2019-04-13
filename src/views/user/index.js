@@ -1,1 +1,1 @@
-require('./js/input')
+import('./js/input')

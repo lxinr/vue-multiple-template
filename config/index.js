@@ -6,7 +6,7 @@ const srcPath = function() {
   return path.join(root, 'src', ...arguments)
 }
 
-const DIS_MODULE = 'multiple'
+const DIS_MODULE = ''
 
 module.exports = {
   srcDir: srcPath(),
@@ -14,6 +14,10 @@ module.exports = {
   viewsDir: srcPath('views'),
   distDir: srcPath('..', 'dist', DIS_MODULE),
   staticDir: srcPath('static'),
-  // 原生代码的文件
-  primitive: ['user']
+  // 指定哪些是原生页面的文件目录
+  primitive: ['user'],
+  devServer: {
+    host: '127.0.0.1',
+    port: 81
+  }
 }

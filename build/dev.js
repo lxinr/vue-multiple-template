@@ -29,7 +29,8 @@ const devConf = {
       children: false,
       chunks: false,
       modules: false
-    }
+    },
+    ...config.devServer
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin()
